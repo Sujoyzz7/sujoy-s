@@ -21,28 +21,55 @@ const SkillCard = ({ category, index }: SkillCardProps) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="glass-card p-6 hover:border-primary/40 transition-all duration-300 group"
+      whileHover={{ y: -5 }}
+      className="glass-card-hover p-7 group"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-          <Icon size={24} />
-        </div>
-        <h3 className="font-display font-semibold text-lg">{category.title}</h3>
+      <div className="flex items-center gap-4 mb-6">
+        <motion.div 
+          className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 text-primary border border-primary/20"
+          whileHover={{ scale: 1.1, rotate: 10 }}
+          transition={{ type: "spring", stiffness: 400 }}
+        >
+          <Icon size={26} />
+        </motion.div>
+        <h3 className="font-display font-semibold text-xl group-hover:text-primary transition-colors">
+          {category.title}
+        </h3>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {category.skills.map((skill) => (
-          <span
+      <motion.div 
+        className="flex flex-wrap gap-2"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.05, delayChildren: 0.2 + index * 0.1 },
+          },
+        }}
+      >
+        {category.skills.map((skill, skillIndex) => (
+          <motion.span
             key={skill.name}
-            className="px-3 py-1.5 text-sm rounded-full bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            variants={{
+              hidden: { opacity: 0, scale: 0.8 },
+              visible: { opacity: 1, scale: 1 },
+            }}
+            whileHover={{ 
+              scale: 1.08, 
+              backgroundColor: "hsl(var(--primary) / 0.15)",
+              borderColor: "hsl(var(--primary) / 0.4)",
+            }}
+            className="skill-pill"
           >
             {skill.name}
-          </span>
+          </motion.span>
         ))}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
