@@ -116,7 +116,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
-                  <p className="font-medium text-lg group-hover:text-primary transition-colors">contact@sujoyroy.dev</p>
+                  <p className="font-medium text-lg group-hover:text-primary transition-colors">sujoyexe@gmail.com</p>
                 </div>
               </motion.div>
               <motion.div 
